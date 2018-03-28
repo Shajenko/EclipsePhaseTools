@@ -44,7 +44,10 @@ function openTool(evt, toolName) {
     defaultToolFunc(toolName);
 }
 
+function CalcClick(char)
+{
 
+}
 
 
 function writeCharacters() {
@@ -55,7 +58,8 @@ function writeCharacters() {
     for (i = 0; i < charList.length; i++) {
         outputString += "<tr>";
         outputString += "<td>" + charList[i].name + "</td>";
-        //outputString += "<td>" + "<button name=\"" + buildList[i].name + "Build\" onclick=\"BuildClick(" + buildList[i].name + ")\">Build</button>" + "</td>";
+        outputString += "<td>" + "<textarea name=\"" + charList[i].name + "\"></textarea> </td>";
+        outputString += "<td>" + "<button name=\"" + charList[i].name + "Calc\" onclick=\"CalcClick(" + charList[i].name + ")\">Calc</button>" + "</td>";
         outputString += "</tr>";
     }
     outputString += "</table>";
