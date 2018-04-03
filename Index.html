@@ -40,7 +40,6 @@
     <!-- Tab Content-->
     <div id="Initiative" class="tabcontent">
         <h3>Initiative</h3>
-        <p>This is the initiative tool.</p>
 
         <div name ="CharacterAddDiv" style="vertical-align: top">
             <table align="center" width="100%" cellspacing="5" cellpadding="5px">
@@ -48,14 +47,14 @@
                     <td><p>Add Character to List</p></td>
                 </tr>
                 <tr>
-                    <td width="40%">
-                        <textarea name="CharNameInit">Enter Name</textarea>
+                    <td width="25%" valign="top">
+                        <textarea id="CharNameInit" rows="1" cols="42" style="resize:none">Enter Name</textarea>
                     </td>
-                    <td width="10%">
-                        <textarea name="CharInitVal">Init Val</textarea>
+                    <td width="5%" valign="top">
+                        <textarea id="CharInitVal" rows="1" cols="5" style="resize:none">Init</textarea>
                     </td>
-                    <td width="50%">
-                        <button name="AddCharInitiative">Add Character</button>
+                    <td width="70%" valign="top">
+                        <button id="AddCharInitiative" class="StdButton" onclick="AddCharInit()">Add Character</button>
                     </td>
                 </tr>
 

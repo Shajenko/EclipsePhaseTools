@@ -1,9 +1,9 @@
 // JavaScript Document
 	
 
-var charList = [{ name: "Bob", baseInit: 0, initRoll: 0, fullInit: 0 },
-				 { name: "Sue", baseInit: 0, initRoll: 0, fullInit: 0 },
-				 { name: "Jim", baseInit: 0, initRoll: 0, fullInit: 0 }];
+var charList = [{ name: "Bob", baseInit: 5, initRoll: 0, fullInit: 0 },
+				 { name: "Sue", baseInit: 2, initRoll: 0, fullInit: 0 },
+				 { name: "Jim", baseInit: 3, initRoll: 0, fullInit: 0 }];
 
 function initialize()
 {
@@ -49,16 +49,36 @@ function CalcClick(char)
 
 }
 
+function AddCharInit()
+{
+    var cname, initial, newChar;
+
+    cname = document.getElementById("CharNameInit").textContent;
+    initial = document.getElementById("CharInitVal").textContent;
+    newChar = { name:cname, baseInit:initial, initRoll:0, fullInit:0};
+
+    charList.push(newChar);
+    writeCharacters();
+}
+
 
 function writeCharacters() {
     var outputString = "";
 
     outputString += "<table width=\"100%\">"
 
+    outputString += "<tr>";
+    outputString += "<td width=\"20%\"> Character Name </td>";
+    outputString += "<td width=\"12%\"> Base Init</td > ";
+    outputString += "<td width=\"12%\"> Rolled Init</td>";
+    outputString += "</tr>";
+
+
     for (i = 0; i < charList.length; i++) {
         outputString += "<tr>";
-        outputString += "<td>" + charList[i].name + "</td>";
-        outputString += "<td>" + "<textarea name=\"" + charList[i].name + "\"></textarea> </td>";
+        outputString += "<td width=\"20%\">" + charList[i].name + "</td>";
+        outputString += "<td>" + charList[i].baseInit + "</td > ";
+        outputString += "<td>" + "<textarea rows=\"1\" cols=\"4\">" + charList[i].initRoll + "</textarea>" + "</td>";
         outputString += "<td>" + "<button name=\"" + charList[i].name + "Calc\" onclick=\"CalcClick(" + charList[i].name + ")\">Calc</button>" + "</td>";
         outputString += "</tr>";
     }
