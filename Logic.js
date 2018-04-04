@@ -44,9 +44,10 @@ function openTool(evt, toolName) {
     defaultToolFunc(toolName);
 }
 
-function CalcClick(char)
+function Delete(index)
 {
-
+    charList.splice(index, 1);
+    writeCharacters();
 }
 
 function AddCharInit()
@@ -79,7 +80,7 @@ function writeCharacters() {
         outputString += "<td width=\"20%\">" + charList[i].name + "</td>";
         outputString += "<td>" + charList[i].baseInit + "</td > ";
         outputString += "<td>" + "<textarea rows=\"1\" cols=\"4\">" + charList[i].initRoll + "</textarea>" + "</td>";
-        outputString += "<td>" + "<button name=\"" + charList[i].name + "Calc\" onclick=\"CalcClick(" + charList[i].name + ")\">Calc</button>" + "</td>";
+        outputString += "<td>" + "<button name=\"" + charList[i].name + "Delete\" onclick=\"Delete(" + i + ")\">X</button>" + "</td>";
         outputString += "</tr>";
     }
     outputString += "</table>";
