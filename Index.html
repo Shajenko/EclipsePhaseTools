@@ -15,7 +15,7 @@
       <tbody>
         <tr>
           <td width="20%"><a class="navbar-brand" href="./Index.html">Eclipse Phase Tools</a></td>
-          <td width="50%" align="center"><a href="./Index.html">Home</a> | <a href="./About">About</a> | <a href="./Contact">Contact</a></td>
+          <td width="50%" align="right"><a href="./Index.html">Home</a> | <a href="./About">About</a> | <a href="./Contact">Contact</a></td>
         </tr>
       </tbody>
     </table>
@@ -42,20 +42,23 @@
         <h3>Initiative</h3>
 
         <div name ="CharacterAddDiv" style="vertical-align: top">
-            <table align="center" width="100%" cellspacing="5" cellpadding="5px">
-                <tr>
-                    <td><p>Add Character to List</p></td>
+            <table align="center" width="100%" style="border:none">
+                <tr >
+                    <td>Add Character to List</td>
                 </tr>
                 <tr>
                     <td width="25%" valign="top">
-                        <textarea id="CharNameInit" rows="1" cols="42" style="resize:none">Enter Name</textarea>
+                        <textarea id="CharNameInit" rows="1" cols="42">Enter Name</textarea>
                     </td>
                     <td width="5%" valign="top">
-                        <textarea id="CharInitVal" rows="1" cols="5" style="resize:none">Init</textarea>
+                        <textarea id="CharInitVal" rows="1" cols="5">0</textarea>
                     </td>
                     <td width="70%" valign="top">
                         <button id="AddCharInitiative" class="StdButton" onclick="AddCharInit()">Add Character</button>
                     </td>
+                </tr>
+                <tr>
+                    <td><button id="CalcInitButton" class="StdButton" onclick="CalcInit()">Calculate Initiative</button></td>
                 </tr>
 
             </table>

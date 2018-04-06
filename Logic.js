@@ -50,12 +50,27 @@ function Delete(index)
     writeCharacters();
 }
 
+function CalcInit()
+{
+    for (i = 0; i < charList.length; i++)
+    {
+        charList[i].fullInit = charList[i].baseInit + charList[i].initRoll;
+    }
+    writeCharacters();
+}
+
 function AddCharInit()
 {
     var cname, initial, newChar;
 
-    cname = document.getElementById("CharNameInit").textContent;
-    initial = document.getElementById("CharInitVal").textContent;
+    cname = document.getElementById("CharNameInit").value;
+    initial = parseInt(document.getElementById("CharInitVal").value);
+    if (!Number.isInteger(initial))
+    {
+        alert("Error: Please enter an integer for the initiative.");
+        document.getElementById("CharInitVal").value = 0;
+        return;
+    }
     newChar = { name:cname, baseInit:initial, initRoll:0, fullInit:0};
 
     charList.push(newChar);
@@ -69,17 +84,20 @@ function writeCharacters() {
     outputString += "<table width=\"100%\">"
 
     outputString += "<tr>";
-    outputString += "<td width=\"20%\"> Character Name </td>";
-    outputString += "<td width=\"12%\"> Base Init</td > ";
-    outputString += "<td width=\"12%\"> Rolled Init</td>";
+    outputString += "<td width=\"10%\"> Character Name </td>";
+    outputString += "<td width=\"7%\" align=\"center\"> Base Init</td > ";
+    outputString += "<td width=\"7%\" align=\"center\"> Rolled Init</td>";
+    outputString += "<td width=\"7%\" align=\"center\"> Final Init</td>";
+    outputString += "<td> Delete Entry</td>";
     outputString += "</tr>";
 
 
     for (i = 0; i < charList.length; i++) {
         outputString += "<tr>";
-        outputString += "<td width=\"20%\">" + charList[i].name + "</td>";
-        outputString += "<td>" + charList[i].baseInit + "</td > ";
-        outputString += "<td>" + "<textarea rows=\"1\" cols=\"4\">" + charList[i].initRoll + "</textarea>" + "</td>";
+        outputString += "<td width=\"10%\">" + charList[i].name + "</td>";
+        outputString += "<td align=\"center\">" + charList[i].baseInit + "</td > ";
+        outputString += "<td align=\"center\">" + "<textarea rows=\"1\" cols=\"4\">" + charList[i].initRoll + "</textarea>" + "</td>";
+        outputString += "<td align=\"center\">" + charList[i].fullInit + "</td > ";
         outputString += "<td>" + "<button name=\"" + charList[i].name + "Delete\" onclick=\"Delete(" + i + ")\">X</button>" + "</td>";
         outputString += "</tr>";
     }

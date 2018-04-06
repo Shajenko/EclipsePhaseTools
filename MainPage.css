@@ -37,3 +37,15 @@
     border: 1px solid #ccc;
     border-top: none;
 }
+
+textarea 
+{
+    resize: none;
+}
+
+table
+{
+    padding-top: 1px;
+    padding-bottom: 1px;
+    border:solid;
+}
