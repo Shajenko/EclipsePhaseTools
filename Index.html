@@ -42,7 +42,7 @@
         <h3>Initiative</h3>
 
         <div name ="CharacterAddDiv" style="vertical-align: top">
-            <table align="center" width="100%" style="border:none">
+            <table align="left" width="100%" style="border:none">
                 <tr >
                     <td>Add Character to List</td>
                 </tr>
@@ -57,15 +57,17 @@
                         <button id="AddCharInitiative" class="StdButton" onclick="AddCharInit()">Add Character</button>
                     </td>
                 </tr>
+            </table>
+        </div>
+        <div name="InitiativeOptionsDiv" style="vertical-align:top">
+            <table align="left" width="25%" style="border:none">
                 <tr>
                     <td><button id="CalcInitButton" class="StdButton" onclick="CalcInit()">Calculate Initiative</button></td>
+                    <td><button id="NextCharacter" class="StdButton">Next Character</button></td>
+                    <td><button id="NextTurn" class="StdButton">Next Turn</button></td>
                 </tr>
 
-            </table>
-            
-            
-            
-            
+            </table>     
         </div>
 
         <div id="CharacterList" style="vertical-align: top">
