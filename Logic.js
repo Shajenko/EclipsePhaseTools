@@ -5,9 +5,11 @@ var charList = [{ name: "Bob", baseInit: 5, initRoll: 0, fullInit: 0 },
 				 { name: "Sue", baseInit: 2, initRoll: 0, fullInit: 0 },
 				 { name: "Jim", baseInit: 3, initRoll: 0, fullInit: 0 }];
 
+
 function initialize()
 {
-	"use strict";
+    "use strict";
+    // Load data from JSON
 }
 
 function defaultToolFunc(tName)
@@ -21,6 +23,8 @@ function defaultToolFunc(tName)
 
 
 function openTool(evt, toolName) {
+	"use strict";
+	
     // Declare all variables
     var i, tabcontent, tablinks;
 
@@ -46,12 +50,14 @@ function openTool(evt, toolName) {
 
 function Delete(index)
 {
+	"use strict";
     charList.splice(index, 1);
     writeCharacters();
 }
 
 function AddCharInit()
 {
+	"use strict";
     var cname, initial, newChar;
 
     cname = document.getElementById("CharNameInit").textContent;
@@ -62,11 +68,20 @@ function AddCharInit()
     writeCharacters();
 }
 
+function SaveCharList()
+{
+	"use strict";
+	var json = JSON.stringify(charList);
+	download(json, "InitiativeList.json", "application/json");
+}
+
+
 
 function writeCharacters() {
-    var outputString = "";
+	"use strict";
+	var outputString = "";
 
-    outputString += "<table width=\"100%\">"
+    outputString += "<table width=\"100%\">";
 
     outputString += "<tr>";
     outputString += "<td width=\"20%\"> Character Name </td>";
@@ -75,7 +90,7 @@ function writeCharacters() {
     outputString += "</tr>";
 
 
-    for (i = 0; i < charList.length; i++) {
+    for (var i = 0; i < charList.length; i++) {
         outputString += "<tr>";
         outputString += "<td width=\"20%\">" + charList[i].name + "</td>";
         outputString += "<td>" + charList[i].baseInit + "</td > ";

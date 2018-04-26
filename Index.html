@@ -5,8 +5,6 @@
 <head>
     <meta charset="utf-8" />
     <title>Eclipse Phase - GM Tools</title>
-
-	<script language="javascript" src="Logic.js"></script>
     <link rel="stylesheet" type="text/css" href="MainPage.css">
 
 </head>
@@ -45,6 +43,7 @@
             <table align="center" width="100%" cellspacing="5" cellpadding="5px">
                 <tr>
                     <td><p>Add Character to List</p></td>
+                    <td><button id="SaveList" class="StdButton" onclick="SaveCharList()">Save List</button></td>
                 </tr>
                 <tr>
                     <td width="25%" valign="top">
@@ -71,10 +70,14 @@
 
     </div>
 
+	<script language="javascript" src="jquery.js"></script>
+    <script language="javascript" src="Utilities.js"></script>
+    <script language="javascript" src="Logic.js"></script>
     <script>
         // Get the element with id="defaultOpen" and click on it
         document.getElementById("defaultOpen").click();
     </script>
 
+	
 </body>
 </html>
