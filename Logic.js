@@ -10,7 +10,10 @@ function initialize()
 {
     "use strict";
     // Load data from JSON
+	var inputElement = document.getElementById("openCharList");
+	inputElement.addEventListener("change", loadCharList, false);
 }
+
 
 function defaultToolFunc(tName)
 {
@@ -88,6 +91,15 @@ function SaveCharList()
 	"use strict";
 	var json = JSON.stringify(charList);
 	download(json, "InitiativeList.json", "application/json");
+}
+
+function LoadCharList()
+{
+	var reader = loadFile();
+	if(reader != 0)
+	{
+		
+	}
 }
 
 
