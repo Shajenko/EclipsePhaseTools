@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 
@@ -13,7 +13,7 @@
       <tbody>
         <tr>
           <td width="20%"><a class="navbar-brand" href="./Index.html">Eclipse Phase Tools</a></td>
-          <td width="50%" align="center"><a href="./Index.html">Home</a> | <a href="./About">About</a> | <a href="./Contact">Contact</a></td>
+          <td width="50%" align="right"><a href="./Index.html">Home</a> | <a href="./About">About</a> | <a href="./Contact">Contact</a></td>
         </tr>
       </tbody>
     </table>
@@ -47,21 +47,26 @@
                 </tr>
                 <tr>
                     <td width="25%" valign="top">
-                        <textarea id="CharNameInit" rows="1" cols="42" style="resize:none">Enter Name</textarea>
+                        <textarea id="CharNameInit" rows="1" cols="42">Enter Name</textarea>
                     </td>
                     <td width="5%" valign="top">
-                        <textarea id="CharInitVal" rows="1" cols="5" style="resize:none">Init</textarea>
+                        <textarea id="CharInitVal" rows="1" cols="5">0</textarea>
                     </td>
                     <td width="70%" valign="top">
                         <button id="AddCharInitiative" class="StdButton" onclick="AddCharInit()">Add Character</button>
                     </td>
                 </tr>
-
             </table>
-            
-            
-            
-            
+        </div>
+        <div name="InitiativeOptionsDiv" style="vertical-align:top">
+            <table align="left" width="25%" style="border:none">
+                <tr>
+                    <td><button id="CalcInitButton" class="StdButton" onclick="CalcInit()">Calculate Initiative</button></td>
+                    <td><button id="NextCharacter" class="StdButton">Next Character</button></td>
+                    <td><button id="NextTurn" class="StdButton">Next Turn</button></td>
+                </tr>
+
+            </table>     
         </div>
 
         <div id="CharacterList" style="vertical-align: top">
