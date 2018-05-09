@@ -4,6 +4,8 @@
 var charList = [{ name: "Bob", baseInit: 5, initRoll: 0, fullInit: 0 },
 				 { name: "Sue", baseInit: 2, initRoll: 0, fullInit: 0 },
 				 { name: "Jim", baseInit: 3, initRoll: 0, fullInit: 0 }];
+				 
+var fileHeader = "/ECHelperWebsite/start";
 
 
 function initialize()
@@ -89,19 +91,35 @@ function AddCharInit()
 function SaveCharList()
 {
 	"use strict";
-	var json = JSON.stringify(charList);
+	// Check for custom header
+	var json;
+	json = fileHeader;
+	json += JSON.stringify(charList);
 	download(json, "InitiativeList.json", "application/json");
 }
 
 function LoadCharList()
 {
+	var json;
+	var fileString;
 	var reader = loadFile(document.getElementById("openCharList"));
 	if(reader != 0)
 	{
 		reader.onload = function(event) {
 		    // The file's text will be printed here
-		    console.log(event.target.result);
-			// Convert file to java objects
+			fileString = event.target.result;
+		    console.log(fileString);
+			// Convert file to java objects	
+			// Check for custom header		
+
+			if(fileString.indexOf(fileHeader) >= 0)
+			{
+				fileString = fileString.slice(fileHeader.length);
+				console.log(fileString);
+				json = JSON.parse(fileString);
+				charList = json;
+				writeCharacters();
+			}
 	    };
 	}
 }
