@@ -11,7 +11,7 @@ function initialize()
     "use strict";
     // Load data from JSON
 	var inputElement = document.getElementById("openCharList");
-	inputElement.addEventListener("change", loadCharList, false);
+	inputElement.addEventListener("change", LoadCharList, false);
 }
 
 
@@ -95,10 +95,14 @@ function SaveCharList()
 
 function LoadCharList()
 {
-	var reader = loadFile();
+	var reader = loadFile(document.getElementById("openCharList"));
 	if(reader != 0)
 	{
-		
+		reader.onload = function(event) {
+		    // The file's text will be printed here
+		    console.log(event.target.result);
+			// Convert file to java objects
+	    };
 	}
 }
 

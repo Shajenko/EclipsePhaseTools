@@ -9,10 +9,10 @@ function download(content, fileName, contentType) {
     a.click();
 }
 
-function loadFile()
+function loadFile(element)
 {
 	"use strict";
-	var fileList = this.files;
+	var fileList = element.files;
 	var file = fileList[0];
 	var reader = new FileReader();
 	var result;
@@ -24,7 +24,4 @@ function loadFile()
 	}
 	reader.readAsText(file);
 	return reader;
-	    // The file's text will be printed here
-	    //console.log(event.target.result);
-		//alert("Text of file: " + event.target.result);
 }
