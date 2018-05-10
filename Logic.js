@@ -124,7 +124,15 @@ function LoadCharList()
 	}
 }
 
-
+function generateRandom()
+{
+	"use strict";
+	var id;
+    for (var i = 0; i < charList.length; i++) {
+		charList[i].initRoll = randomD10();
+	}
+	CalcInit();
+}
 
 function writeCharacters() {
 	"use strict";
@@ -145,7 +153,7 @@ function writeCharacters() {
         outputString += "<tr>";
         outputString += "<td width=\"10%\">" + charList[i].name + "</td>";
         outputString += "<td align=\"center\">" + charList[i].baseInit + "</td > ";
-        outputString += "<td align=\"center\">" + "<textarea rows=\"1\" cols=\"4\">" + charList[i].initRoll + "</textarea>" + "</td>";
+        outputString += "<td align=\"center\">" + "<textarea rows=\"1\" cols=\"4\" id=\"" + i + "Rand\">" + charList[i].initRoll + "</textarea>" + "</td>";
         outputString += "<td align=\"center\">" + charList[i].fullInit + "</td > ";
         outputString += "<td>" + "<button name=\"" + charList[i].name + "Delete\" onclick=\"Delete(" + i + ")\">X</button>" + "</td>";
         outputString += "</tr>";

@@ -25,3 +25,8 @@ function loadFile(element)
 	reader.readAsText(file);
 	return reader;
 }
+
+function randomD10()
+{
+	return Math.floor(Math.random() * (10)) + 1;
+}
