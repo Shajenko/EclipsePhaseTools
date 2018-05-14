@@ -15,7 +15,6 @@ function loadFile(element)
 	var fileList = element.files;
 	var file = fileList[0];
 	var reader = new FileReader();
-	var result;
 	alert("Type: " + file.type);
 	if(fileList.length === 0)
 	{
@@ -24,6 +23,15 @@ function loadFile(element)
 	}
 	reader.readAsText(file);
 	return reader;
+}
+
+function loadFileByName(filename)
+{
+	"use strict";
+	var reader = new FileReader();
+	reader.readAsText(filename);
+	return reader;
+	
 }
 
 function randomD10()

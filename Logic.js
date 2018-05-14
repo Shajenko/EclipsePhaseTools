@@ -14,6 +14,9 @@ function initialize()
     // Load data from JSON
 	var inputElement = document.getElementById("openCharList");
 	inputElement.addEventListener("change", LoadCharList, false);
+	// Load Character List from InitiativeList.json
+	LoadCharListByName(".\\InitiativeList.json");
+	writeCharacters();
 }
 
 
@@ -66,7 +69,6 @@ function CalcInit()
     {
         charList[i].fullInit = charList[i].baseInit + charList[i].initRoll;
     }
-    writeCharacters();
 }
 
 function AddCharInit()
@@ -124,6 +126,33 @@ function LoadCharList()
 	}
 }
 
+function LoadCharListByName(filename)
+{
+	var reader = loadFileByName(filename);
+	if(reader != 0)
+	{
+		alert("LoadCharListByName: " + filename);
+		reader.onload = function(event) {
+			alert("Inside onload function");
+		    // The file's text will be printed here
+			fileString = event.target.result;
+		    console.log(fileString);
+			// Convert file to java objects	
+			// Check for custom header		
+
+			if(fileString.indexOf(fileHeader) >= 0)
+			{
+				fileString = fileString.slice(fileHeader.length);
+				console.log(fileString);
+				var json = JSON.parse(fileString);
+				charList = json;
+				writeCharacters();
+			}
+	    };
+	}
+	
+}
+
 function generateRandom()
 {
 	"use strict";
@@ -132,6 +161,14 @@ function generateRandom()
 		charList[i].initRoll = randomD10();
 	}
 	CalcInit();
+	sortChars();
+	writeCharacters();
+}
+
+function sortChars()
+{
+	"use strict";
+	charList.sort(function(a, b) {return b.fullInit - a.fullInit});
 }
 
 function writeCharacters() {
