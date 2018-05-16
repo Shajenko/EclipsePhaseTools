@@ -15,7 +15,7 @@ function loadFile(element)
 	var fileList = element.files;
 	var file = fileList[0];
 	var reader = new FileReader();
-	alert("Type: " + file.type);
+	//alert("Type: " + file.type);
 	if(fileList.length === 0)
 	{
 		alert("No files included");

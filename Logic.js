@@ -65,10 +65,23 @@ function Delete(index)
 
 function CalcInit()
 {
-    for (i = 0; i < charList.length; i++)
+	UpdateInit();
+    for (var i = 0; i < charList.length; i++)
     {
         charList[i].fullInit = charList[i].baseInit + charList[i].initRoll;
     }
+	writeCharacters();
+}
+
+function UpdateInit()
+{
+	var val;
+	var id;
+	for (var i = 0; i < charList.length; i++) {
+		id = i + "Rand";
+		val = parseInt(document.getElementById(id).value);
+		charList[i].initRoll = val;
+	}
 }
 
 function AddCharInit()
@@ -156,7 +169,6 @@ function LoadCharListByName(filename)
 function generateRandom()
 {
 	"use strict";
-	var id;
     for (var i = 0; i < charList.length; i++) {
 		charList[i].initRoll = randomD10();
 	}
