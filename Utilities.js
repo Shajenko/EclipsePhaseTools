@@ -25,14 +25,6 @@ function loadFile(element)
 	return reader;
 }
 
-function loadFileByName(filename)
-{
-	"use strict";
-	var reader = new FileReader();
-	reader.readAsText(filename);
-	return reader;
-	
-}
 
 function randomD10()
 {

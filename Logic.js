@@ -1,9 +1,10 @@
 // JavaScript Document
 	
 
-var charList = [{ name: "Bob", baseInit: 5, initRoll: 0, fullInit: 0 },
-				 { name: "Sue", baseInit: 2, initRoll: 0, fullInit: 0 },
-				 { name: "Jim", baseInit: 3, initRoll: 0, fullInit: 0 }];
+var charList = [{ name: "Bob", baseInit: 5, initRoll: 0, fullInit: 0, finished: false},
+				 { name: "Sue", baseInit: 2, initRoll: 0, fullInit: 0, finished: false },
+				 { name: "Jim", baseInit: 3, initRoll: 0, fullInit: 0, finished: true }];
+				 
 				 
 var fileHeader = "/ECHelperWebsite/start";
 
@@ -15,7 +16,6 @@ function initialize()
 	var inputElement = document.getElementById("openCharList");
 	inputElement.addEventListener("change", LoadCharList, false);
 	// Load Character List from InitiativeList.json
-	LoadCharListByName(".\\InitiativeList.json");
 	writeCharacters();
 }
 
@@ -70,6 +70,8 @@ function CalcInit()
     {
         charList[i].fullInit = charList[i].baseInit + charList[i].initRoll;
     }
+	// Sort initiative
+	sortChars();
 	writeCharacters();
 }
 
@@ -78,9 +80,12 @@ function UpdateInit()
 	var val;
 	var id;
 	for (var i = 0; i < charList.length; i++) {
-		id = i + "Rand";
-		val = parseInt(document.getElementById(id).value);
-		charList[i].initRoll = val;
+		if(!charList[i].finished)
+		{
+			id = i + "Rand";
+			val = parseInt(document.getElementById(id).value);
+			charList[i].initRoll = val;
+		}
 	}
 }
 
@@ -151,7 +156,7 @@ function LoadCharListByName(filename)
 			fileString = event.target.result;
 		    console.log(fileString);
 			// Convert file to java objects	
-			// Check for custom header		
+			// Check for custom header	
 
 			if(fileString.indexOf(fileHeader) >= 0)
 			{
@@ -159,6 +164,8 @@ function LoadCharListByName(filename)
 				console.log(fileString);
 				var json = JSON.parse(fileString);
 				charList = json;
+				for(var i = 0;i < charList.length; i++)
+					charList[i].finished = false;
 				writeCharacters();
 			}
 	    };
@@ -183,6 +190,32 @@ function sortChars()
 	charList.sort(function(a, b) {return b.fullInit - a.fullInit});
 }
 
+function nextChar()
+{
+	var i = 0;
+	var currTurn = charList[i].finished;
+	charList[i].finished = true;
+	
+	// Find the first character whose turn isn't over
+	while(currTurn && (i < charList.length))
+	{
+		currTurn = charList[i].finished;
+		console.log(charList[i].name + " " + charList[i].finished);
+		charList[i].finished = true;
+		i++;
+	}
+	writeCharacters();	
+}
+
+function nextTurn()
+{
+    for (var i = 0; i < charList.length; i++) {
+		charList[i].finished = false;
+	}
+	writeCharacters();
+}
+
+
 function writeCharacters() {
 	"use strict";
 	var outputString = "";
@@ -199,13 +232,16 @@ function writeCharacters() {
 
 
     for (var i = 0; i < charList.length; i++) {
-        outputString += "<tr>";
-        outputString += "<td width=\"10%\">" + charList[i].name + "</td>";
-        outputString += "<td align=\"center\">" + charList[i].baseInit + "</td > ";
-        outputString += "<td align=\"center\">" + "<textarea rows=\"1\" cols=\"4\" id=\"" + i + "Rand\">" + charList[i].initRoll + "</textarea>" + "</td>";
-        outputString += "<td align=\"center\">" + charList[i].fullInit + "</td > ";
-        outputString += "<td>" + "<button name=\"" + charList[i].name + "Delete\" onclick=\"Delete(" + i + ")\">X</button>" + "</td>";
-        outputString += "</tr>";
+		if(!charList[i].finished)
+		{
+			outputString += "<tr>";
+			outputString += "<td width=\"10%\">" + charList[i].name + "</td>";
+			outputString += "<td align=\"center\">" + charList[i].baseInit + "</td > ";
+			outputString += "<td align=\"center\">" + "<textarea rows=\"1\" cols=\"4\" id=\"" + i + "Rand\">" + charList[i].initRoll + "</textarea>" + "</td>";
+			outputString += "<td align=\"center\">" + charList[i].fullInit + "</td > ";
+			outputString += "<td>" + "<button name=\"" + charList[i].name + "Delete\" onclick=\"Delete(" + i + ")\">X</button>" + "</td>";
+			outputString += "</tr>";
+		}
     }
     outputString += "</table>";
     document.getElementById("CharacterList").innerHTML = outputString;
