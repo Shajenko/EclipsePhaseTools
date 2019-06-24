@@ -37,3 +37,33 @@
     border: 1px solid #ccc;
     border-top: none;
 }
+
+.control {
+	overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+.control button {
+	background-color: #d1d1d1;
+	min-height: 50px;
+	height: 30px;
+	float: left;
+    border: inherit;
+    outline: auto;
+    cursor: pointer;
+	height: 100%;
+	width: 100%;
+}
+
+textarea 
+{
+    resize: none;
+}
+
+table
+{
+    padding-top: 1px;
+    padding-bottom: 1px;
+    border:solid;
+}
