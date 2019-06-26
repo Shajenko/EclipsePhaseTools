@@ -16,7 +16,7 @@ function initialize()
 	var inputElement = document.getElementById("openCharList");
 	inputElement.addEventListener("change", LoadCharList, false);
 	// Load Character List from InitiativeList.json
-	writeCharacters();
+	writeCharactersInitiative();
 }
 
 
@@ -24,7 +24,7 @@ function defaultToolFunc(tName)
 {
     if(tName == "Initiative")
     {
-        writeCharacters();
+        writeCharactersInitiative();
         return;
     }
 }
@@ -60,7 +60,7 @@ function Delete(index)
 {
 	"use strict";
     charList.splice(index, 1);
-    writeCharacters();
+    writeCharactersInitiative();
 }
 
 function CalcInit()
@@ -72,7 +72,7 @@ function CalcInit()
     }
 	// Sort initiative
 	sortChars();
-	writeCharacters();
+	writeCharactersInitiative();
 }
 
 function UpdateInit()
@@ -105,7 +105,7 @@ function AddCharInit()
     newChar = { name:cname, baseInit:initial, initRoll:0, fullInit:0};
 
     charList.push(newChar);
-    writeCharacters();
+    writeCharactersInitiative();
 }
 
 function SaveCharList()
@@ -138,7 +138,7 @@ function LoadCharList()
 				console.log(fileString);
 				json = JSON.parse(fileString);
 				charList = json;
-				writeCharacters();
+				writeCharactersInitiative();
 			}
 	    };
 	}
@@ -166,7 +166,7 @@ function LoadCharListByName(filename)
 				charList = json;
 				for(var i = 0;i < charList.length; i++)
 					charList[i].finished = false;
-				writeCharacters();
+				writeCharactersInitiative();
 			}
 	    };
 	}
@@ -181,7 +181,7 @@ function generateRandom()
 	}
 	CalcInit();
 	sortChars();
-	writeCharacters();
+	writeCharactersInitiative();
 }
 
 function sortChars()
@@ -204,7 +204,7 @@ function nextChar()
 		charList[i].finished = true;
 		i++;
 	}
-	writeCharacters();	
+	writeCharactersInitiative();	
 }
 
 function nextTurn()
@@ -212,11 +212,11 @@ function nextTurn()
     for (var i = 0; i < charList.length; i++) {
 		charList[i].finished = false;
 	}
-	writeCharacters();
+	writeCharactersInitiative();
 }
 
 
-function writeCharacters() {
+function writeCharactersInitiative() {
 	"use strict";
 	var outputString = "";
 
