@@ -7,6 +7,7 @@ var charList = [{ name: "Bob", baseInit: 5, initRoll: 0, fullInit: 0, finished: 
 				 
 				 
 var fileHeader = "/ECHelperWebsite/start";
+var defaultSettingsFileName = "./InitiativeList.json";
 
 
 function initialize()
@@ -16,6 +17,8 @@ function initialize()
 	var inputElement = document.getElementById("openCharList");
 	inputElement.addEventListener("change", LoadCharList, false);
 	// Load Character List from InitiativeList.json
+	
+
 	writeCharactersInitiative();
 }
 
@@ -26,7 +29,13 @@ function defaultToolFunc(tName)
     {
         writeCharactersInitiative();
         return;
-    }
+	}
+	if (tName == "CombatSkills")
+	{
+		alert("Testing Combat Skills Tab");
+		$("#CombatSkillsTextArea").load(defaultSettingsFileName); // Currently gives error in Chrome
+		return;
+	}
 }
 
 
@@ -116,6 +125,21 @@ function SaveCharList()
 	json = fileHeader;
 	json += JSON.stringify(charList);
 	download(json, "InitiativeList.json", "application/json");
+}
+
+function LoadCharListFromFile(fileName)
+{
+	var json;
+	var fileString;
+	var reader;
+
+	// Check for the various File API support.
+	if (window.File && window.FileReader && window.FileList && window.Blob) {
+		// Great success! All the File APIs are supported.
+  	} else {
+		alert('The File APIs are not fully supported in this browser.');
+		return;
+  	}
 }
 
 function LoadCharList()
@@ -246,3 +270,4 @@ function writeCharactersInitiative() {
     outputString += "</table>";
     document.getElementById("CharacterList").innerHTML = outputString;
 }
+
