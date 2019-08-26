@@ -32,14 +32,16 @@
 
     <!-- Tab Links-->
     <div class="tab">
-        <button class="tablinks" onclick="openTool(event, 'Initiative')" id="defaultOpen">Initiative </button>
+        <button class="tablinks" onclick="openTool(event, 'NewChars')" id="defaultOpen">New Characters</button>
+        <button class="tablinks" onclick="openTool(event, 'Aptitudes')">Aptitudes</button>
+        <button class="tablinks" onclick="openTool(event, 'Initiative')">Initiative </button>
         <button class="tablinks" onclick="openTool(event, 'CombatSkills')">Combat Skills</button>
+
     </div>
 
     <!-- Tab Content-->
-    <div id="Initiative" class="tabcontent">
-        <h3>Initiative</h3>
-
+    <div id="NewChars" class="tabcontent">
+        <h3>New Characters</h3>
         <div name ="CharacterAddDiv" style="vertical-align: top">
             <table align="center" width="100%" cellspacing="5" cellpadding="5px">
                 <tr>
@@ -59,7 +61,27 @@
                     </td>
                 </tr>
             </table>
+        </div>    
+
+        <div id="TotalCharacterList" style="vertical-align: top">
+            <!-- filled by Javascript -->
         </div>
+        
+    </div>
+    
+
+    <!-- Tab Content-->
+    <div id="Aptitudes" class="tabcontent">
+        <h3>Aptitudes</h3>
+
+        
+    </div>
+
+    <!-- Tab Content-->
+    <div id="Initiative" class="tabcontent">
+        <h3>Initiative</h3>
+
+
         <div name="InitiativeOptionsDiv" style="vertical-align:top">
             <table class="control" align="left" width="25%" style="border:none">
                 <tr>

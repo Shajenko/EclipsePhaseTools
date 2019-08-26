@@ -25,6 +25,17 @@ function initialize()
 
 function defaultToolFunc(tName)
 {
+	if(tName == "NewChars")
+	{
+		// todo
+		writeCharacterList();
+		return;
+	}
+	if(tName == "Aptitudes")
+	{
+		// todo
+		return;
+	}
     if(tName == "Initiative")
     {
         writeCharactersInitiative();
@@ -32,8 +43,8 @@ function defaultToolFunc(tName)
 	}
 	if (tName == "CombatSkills")
 	{
-		alert("Testing Combat Skills Tab");
-		$("#CombatSkillsTextArea").load(defaultSettingsFileName); // Currently gives error in Chrome
+		//$("#CombatSkillsTextArea").load(defaultSettingsFileName);
+		// Cannot load files from user's computer - security settings prevent this
 		return;
 	}
 }
@@ -68,7 +79,8 @@ function openTool(evt, toolName) {
 function Delete(index)
 {
 	"use strict";
-    charList.splice(index, 1);
+	charList.splice(index, 1);
+	writeCharacterList();
     writeCharactersInitiative();
 }
 
@@ -114,7 +126,8 @@ function AddCharInit()
     newChar = { name:cname, baseInit:initial, initRoll:0, fullInit:0};
 
     charList.push(newChar);
-    writeCharactersInitiative();
+	writeCharactersInitiative();
+	writeCharacterList();
 }
 
 function SaveCharList()
@@ -201,7 +214,8 @@ function generateRandom()
 {
 	"use strict";
     for (var i = 0; i < charList.length; i++) {
-		charList[i].initRoll = randomD10();
+		charList[i].initRoll = Math.floor(Math.random() * 10) ;
+		document.getElementById(i + "Rand").value = charList[i].initRoll;
 	}
 	CalcInit();
 	sortChars();
@@ -237,6 +251,28 @@ function nextTurn()
 		charList[i].finished = false;
 	}
 	writeCharactersInitiative();
+}
+
+function writeCharacterList() {
+	"use strict";
+	var outputString = "";
+
+    outputString += "<table width=\"100%\">";
+
+    outputString += "<tr>";
+    outputString += "<td width=\"10%\"> Character Name </td>";
+    outputString += "<td> Delete Entry</td>";
+    outputString += "</tr>";
+
+
+    for (var i = 0; i < charList.length; i++) {
+		outputString += "<tr>";
+		outputString += "<td width=\"10%\">" + charList[i].name + "</td>";
+		outputString += "<td>" + "<button name=\"" + charList[i].name + "Delete\" onclick=\"Delete(" + i + ")\">X</button>" + "</td>";
+		outputString += "</tr>";
+    }
+    outputString += "</table>";
+    document.getElementById("TotalCharacterList").innerHTML = outputString;
 }
 
 
