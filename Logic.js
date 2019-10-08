@@ -7,6 +7,7 @@ var charList = [{ name: "Bob", baseInit: 5, initRoll: 0, fullInit: 0, finished: 
 				 
 				 
 var fileHeader = "/ECHelperWebsite/start";
+var defaultSettingsFileName = "./InitiativeList.json";
 
 
 function initialize()
@@ -16,17 +17,36 @@ function initialize()
 	var inputElement = document.getElementById("openCharList");
 	inputElement.addEventListener("change", LoadCharList, false);
 	// Load Character List from InitiativeList.json
-	writeCharacters();
+	
+
+	writeCharactersInitiative();
 }
 
 
 function defaultToolFunc(tName)
 {
+	if(tName == "NewChars")
+	{
+		// todo
+		writeCharacterList();
+		return;
+	}
+	if(tName == "Aptitudes")
+	{
+		// todo
+		return;
+	}
     if(tName == "Initiative")
     {
-        writeCharacters();
+        writeCharactersInitiative();
         return;
-    }
+	}
+	if (tName == "CombatSkills")
+	{
+		//$("#CombatSkillsTextArea").load(defaultSettingsFileName);
+		// Cannot load files from user's computer - security settings prevent this
+		return;
+	}
 }
 
 
@@ -59,8 +79,9 @@ function openTool(evt, toolName) {
 function Delete(index)
 {
 	"use strict";
-    charList.splice(index, 1);
-    writeCharacters();
+	charList.splice(index, 1);
+	writeCharacterList();
+    writeCharactersInitiative();
 }
 
 function CalcInit()
@@ -72,7 +93,7 @@ function CalcInit()
     }
 	// Sort initiative
 	sortChars();
-	writeCharacters();
+	writeCharactersInitiative();
 }
 
 function UpdateInit()
@@ -105,7 +126,8 @@ function AddCharInit()
     newChar = { name:cname, baseInit:initial, initRoll:0, fullInit:0};
 
     charList.push(newChar);
-    writeCharacters();
+	writeCharactersInitiative();
+	writeCharacterList();
 }
 
 function SaveCharList()
@@ -116,6 +138,21 @@ function SaveCharList()
 	json = fileHeader;
 	json += JSON.stringify(charList);
 	download(json, "InitiativeList.json", "application/json");
+}
+
+function LoadCharListFromFile(fileName)
+{
+	var json;
+	var fileString;
+	var reader;
+
+	// Check for the various File API support.
+	if (window.File && window.FileReader && window.FileList && window.Blob) {
+		// Great success! All the File APIs are supported.
+  	} else {
+		alert('The File APIs are not fully supported in this browser.');
+		return;
+  	}
 }
 
 function LoadCharList()
@@ -138,7 +175,7 @@ function LoadCharList()
 				console.log(fileString);
 				json = JSON.parse(fileString);
 				charList = json;
-				writeCharacters();
+				writeCharactersInitiative();
 			}
 	    };
 	}
@@ -166,7 +203,7 @@ function LoadCharListByName(filename)
 				charList = json;
 				for(var i = 0;i < charList.length; i++)
 					charList[i].finished = false;
-				writeCharacters();
+				writeCharactersInitiative();
 			}
 	    };
 	}
@@ -177,11 +214,12 @@ function generateRandom()
 {
 	"use strict";
     for (var i = 0; i < charList.length; i++) {
-		charList[i].initRoll = randomD10();
+		charList[i].initRoll = Math.floor(Math.random() * 10) ;
+		document.getElementById(i + "Rand").value = charList[i].initRoll;
 	}
 	CalcInit();
 	sortChars();
-	writeCharacters();
+	writeCharactersInitiative();
 }
 
 function sortChars()
@@ -204,7 +242,7 @@ function nextChar()
 		charList[i].finished = true;
 		i++;
 	}
-	writeCharacters();	
+	writeCharactersInitiative();	
 }
 
 function nextTurn()
@@ -212,11 +250,33 @@ function nextTurn()
     for (var i = 0; i < charList.length; i++) {
 		charList[i].finished = false;
 	}
-	writeCharacters();
+	writeCharactersInitiative();
+}
+
+function writeCharacterList() {
+	"use strict";
+	var outputString = "";
+
+    outputString += "<table width=\"100%\">";
+
+    outputString += "<tr>";
+    outputString += "<td width=\"10%\"> Character Name </td>";
+    outputString += "<td> Delete Entry</td>";
+    outputString += "</tr>";
+
+
+    for (var i = 0; i < charList.length; i++) {
+		outputString += "<tr>";
+		outputString += "<td width=\"10%\">" + charList[i].name + "</td>";
+		outputString += "<td>" + "<button name=\"" + charList[i].name + "Delete\" onclick=\"Delete(" + i + ")\">X</button>" + "</td>";
+		outputString += "</tr>";
+    }
+    outputString += "</table>";
+    document.getElementById("TotalCharacterList").innerHTML = outputString;
 }
 
 
-function writeCharacters() {
+function writeCharactersInitiative() {
 	"use strict";
 	var outputString = "";
 
@@ -246,3 +306,4 @@ function writeCharacters() {
     outputString += "</table>";
     document.getElementById("CharacterList").innerHTML = outputString;
 }
+
