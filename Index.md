@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Eclipse Phase - GM Tools - Forwarding Page</title>
+    <link rel="stylesheet" type="text/css" href="MainPage.css">
+
+    <script type="text/javascript">
+    <!--
+        window.location = "http://tsonnier.github.io/EclipsePhaseTools/Index.html"
+        //-->
+    </script>
+</head>
+<body>
+Redirecting...
+</body>
+</html>
