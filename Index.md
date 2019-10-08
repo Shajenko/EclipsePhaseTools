@@ -9,7 +9,7 @@
 
     <script type="text/javascript">
     <!--
-        window.location = "http://tsonnier.github.io/EclipsePhaseTools/index.html"
+        window.location = "http://tsonnier.github.io/EclipsePhaseTools/Index.html"
         //-->
     </script>
 </head>
