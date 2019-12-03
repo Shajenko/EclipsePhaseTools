@@ -36,6 +36,7 @@
         <button class="tablinks" onclick="openTool(event, 'Aptitudes')">Aptitudes</button>
         <button class="tablinks" onclick="openTool(event, 'Initiative')">Initiative </button>
         <button class="tablinks" onclick="openTool(event, 'CombatSkills')">Combat Skills</button>
+        <button class="tablinks" onclick="openTool(event, 'TestCookies')">Cookie Testing</button>
 
     </div>
 
@@ -111,6 +112,12 @@
             <textarea id="CombatSkillsTextArea" rows="10" cols="60"></textarea>
             <!-- filled by Javascript -->
         </div>
+    </div>
+
+    <div id="TestCookies" class="tabcontent">
+            <button id="SaveCookie" onclick="SaveCookies()">Save Cookie</button>
+            <button id="ShowCookie" onclick="ShowCookies()">Show Cookie</button>
+            <button id="LoadCookie" onclick="LoadCookies()">Load Cookie</button>
     </div>
 
     <script language="javascript" src="jquery.js"></script>

@@ -80,6 +80,31 @@ function openTool(evt, toolName) {
     defaultToolFunc(toolName);
 }
 
+function SaveCookies()
+{
+	// Todo: update to save charList data correctly
+	var cvalue = "";
+	for (var i = 0; i < charList.length; i++) {
+
+	}
+
+
+	setCookie("CharList", charList, 100);
+}
+
+function LoadCookies()
+{
+	// Todo: update to load charList data correctly
+	charList = getCookie("CharList");
+	writeCharacterList();
+}
+
+function ShowCookies()
+{
+	alert(getCookie("CharList"));
+}
+
+
 function Delete(index)
 {
 	"use strict";
