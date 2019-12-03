@@ -1,5 +1,8 @@
 // JavaScript Document
-	
+
+
+
+
 
 var charList = [{ name: "Bob", baseInit: 5, initRoll: 0, fullInit: 0, finished: false},
 				 { name: "Sue", baseInit: 2, initRoll: 0, fullInit: 0, finished: false },
@@ -8,6 +11,7 @@ var charList = [{ name: "Bob", baseInit: 5, initRoll: 0, fullInit: 0, finished: 
 				 
 var fileHeader = "/ECHelperWebsite/start";
 var defaultSettingsFileName = "./InitiativeList.json";
+
 
 
 function initialize()
