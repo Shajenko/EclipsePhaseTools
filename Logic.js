@@ -83,19 +83,16 @@ function openTool(evt, toolName) {
 function SaveCookies()
 {
 	// Todo: update to save charList data correctly
-	var cvalue = "";
-	for (var i = 0; i < charList.length; i++) {
-
-	}
+	myCookieText = JSON.stringify(charList);
 
 
-	setCookie("CharList", charList, 100);
+	setCookie("CharList", myCookieText, 100);
 }
 
 function LoadCookies()
 {
 	// Todo: update to load charList data correctly
-	charList = getCookie("CharList");
+	charList = JSON.parse(getCookie("CharList"));
 	writeCharacterList();
 }
 
