@@ -74,7 +74,10 @@ function openTool(evt, toolName) {
 
     // Show the current tab, and add an "active" class to the button that opened the tab
     document.getElementById(toolName).style.display = "block";
-    evt.currentTarget.className += " active";
+	evt.currentTarget.className += " active";
+	
+	// Save cookies
+	SaveCookies();
 
     // Run the default function for the tool
     defaultToolFunc(toolName);
@@ -178,7 +181,8 @@ function LoadCharListFromFile(fileName)
   	} else {
 		alert('The File APIs are not fully supported in this browser.');
 		return;
-  	}
+	  }
+	  SaveCookies();
 }
 
 function LoadCharList()
@@ -203,7 +207,8 @@ function LoadCharList()
 				charList = json;
 				writeCharactersInitiative();
 			}
-	    };
+		};
+		SaveCookies();
 	}
 }
 
@@ -231,7 +236,8 @@ function LoadCharListByName(filename)
 					charList[i].finished = false;
 				writeCharactersInitiative();
 			}
-	    };
+		};
+		SaveCookies();
 	}
 	
 }
