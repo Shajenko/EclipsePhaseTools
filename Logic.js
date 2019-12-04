@@ -17,10 +17,10 @@ var defaultSettingsFileName = "./InitiativeList.json";
 function initialize()
 {
     "use strict";
-    // Load data from JSON
 	var inputElement = document.getElementById("openCharList");
 	inputElement.addEventListener("change", LoadCharList, false);
-	// Load Character List from InitiativeList.json
+	// Load Character List from cookie
+	LoadCookies();
 	
 
 	writeCharactersInitiative();
