@@ -17,10 +17,10 @@ var defaultSettingsFileName = "./InitiativeList.json";
 function initialize()
 {
     "use strict";
-    // Load data from JSON
 	var inputElement = document.getElementById("openCharList");
 	inputElement.addEventListener("change", LoadCharList, false);
-	// Load Character List from InitiativeList.json
+	// Load Character List from cookie
+	LoadCookies();
 	
 
 	writeCharactersInitiative();
@@ -74,7 +74,10 @@ function openTool(evt, toolName) {
 
     // Show the current tab, and add an "active" class to the button that opened the tab
     document.getElementById(toolName).style.display = "block";
-    evt.currentTarget.className += " active";
+	evt.currentTarget.className += " active";
+	
+	// Save cookies
+	SaveCookies();
 
     // Run the default function for the tool
     defaultToolFunc(toolName);
@@ -83,19 +86,16 @@ function openTool(evt, toolName) {
 function SaveCookies()
 {
 	// Todo: update to save charList data correctly
-	var cvalue = "";
-	for (var i = 0; i < charList.length; i++) {
-
-	}
+	myCookieText = JSON.stringify(charList);
 
 
-	setCookie("CharList", charList, 100);
+	setCookie("CharList", myCookieText, 100);
 }
 
 function LoadCookies()
 {
 	// Todo: update to load charList data correctly
-	charList = getCookie("CharList");
+	charList = JSON.parse(getCookie("CharList"));
 	writeCharacterList();
 }
 
@@ -181,7 +181,8 @@ function LoadCharListFromFile(fileName)
   	} else {
 		alert('The File APIs are not fully supported in this browser.');
 		return;
-  	}
+	  }
+	  SaveCookies();
 }
 
 function LoadCharList()
@@ -206,7 +207,8 @@ function LoadCharList()
 				charList = json;
 				writeCharactersInitiative();
 			}
-	    };
+		};
+		SaveCookies();
 	}
 }
 
@@ -234,7 +236,8 @@ function LoadCharListByName(filename)
 					charList[i].finished = false;
 				writeCharactersInitiative();
 			}
-	    };
+		};
+		SaveCookies();
 	}
 	
 }

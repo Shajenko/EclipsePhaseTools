@@ -30,3 +30,15 @@ function randomD10()
 {
 	return Math.floor(Math.random() * (10)) + 1;
 }
+
+function serialize(objToSerialize)
+{
+	myObj = JSON.stringify(objToSerialize);
+	return myObj;
+}
+
+function deserialize(objToDeserialize)
+{
+	myObj = JSON.parse(objToDeserialize);
+	return myObj;
+}
