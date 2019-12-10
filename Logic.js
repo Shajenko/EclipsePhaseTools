@@ -3,10 +3,16 @@
 
 
 
-
-var charList = [{ name: "Bob", baseInit: 5, initRoll: 0, fullInit: 0, finished: false},
-				 { name: "Sue", baseInit: 2, initRoll: 0, fullInit: 0, finished: false },
-				 { name: "Jim", baseInit: 3, initRoll: 0, fullInit: 0, finished: true }];
+// Default charList, will likely be overridden by cookies
+var charList = [{ 	name: "Bob", 
+					initiative: {baseInit: 5, initRoll: 0, fullInit: 0, finished: false},
+					aptitudes: {cog: 10, int: 10, ref: 10, sav: 10, som: 10, wil: 10}},
+				 { 	name: "Sue", 
+					initiative: {baseInit: 2, initRoll: 0, fullInit: 0, finished: false },
+					aptitudes: {cog: 10, int: 10, ref: 10, sav: 10, som: 10, wil: 10}},
+				 { 	name: "Jim", 
+					initiative: {baseInit: 3, initRoll: 0, fullInit: 0, finished: true },
+					aptitudes: {cog: 10, int: 10, ref: 10, sav: 10, som: 10, wil: 10}}];
 				 
 				 
 var fileHeader = "/ECHelperWebsite/start";
@@ -20,7 +26,8 @@ function initialize()
 	var inputElement = document.getElementById("openCharList");
 	inputElement.addEventListener("change", LoadCharList, false);
 	// Load Character List from cookie
-	LoadCookies();
+	if(window.confirm("Load Previous Character Data?"))
+		LoadCookies();
 	
 
 	writeCharactersInitiative();
@@ -51,6 +58,9 @@ function defaultToolFunc(tName)
 		// Cannot load files from user's computer - security settings prevent this
 		return;
 	}
+
+	// Save cookies
+	SaveCookies();
 }
 
 
@@ -76,9 +86,6 @@ function openTool(evt, toolName) {
     document.getElementById(toolName).style.display = "block";
 	evt.currentTarget.className += " active";
 	
-	// Save cookies
-	SaveCookies();
-
     // Run the default function for the tool
     defaultToolFunc(toolName);
 }
@@ -118,7 +125,7 @@ function CalcInit()
 	UpdateInit();
     for (var i = 0; i < charList.length; i++)
     {
-        charList[i].fullInit = charList[i].baseInit + charList[i].initRoll;
+        charList[i].initiative.fullInit = charList[i].initiative.baseInit + charList[i].initiative.initRoll;
     }
 	// Sort initiative
 	sortChars();
@@ -130,11 +137,11 @@ function UpdateInit()
 	var val;
 	var id;
 	for (var i = 0; i < charList.length; i++) {
-		if(!charList[i].finished)
+		if(!charList[i].initiative.finished)
 		{
 			id = i + "Rand";
 			val = parseInt(document.getElementById(id).value);
-			charList[i].initRoll = val;
+			charList[i].initiative.initRoll = val;
 		}
 	}
 }
@@ -152,7 +159,7 @@ function AddCharInit()
         document.getElementById("CharInitVal").value = 0;
         return;
     }
-    newChar = { name:cname, baseInit:initial, initRoll:0, fullInit:0};
+    newChar = { name:cname, initiative: {baseInit:initial, initRoll:0, fullInit:0}};
 
     charList.push(newChar);
 	writeCharactersInitiative();
@@ -239,15 +246,14 @@ function LoadCharListByName(filename)
 		};
 		SaveCookies();
 	}
-	
 }
 
 function generateRandom()
 {
 	"use strict";
     for (var i = 0; i < charList.length; i++) {
-		charList[i].initRoll = Math.floor(Math.random() * 10) ;
-		document.getElementById(i + "Rand").value = charList[i].initRoll;
+		charList[i].initiative.initRoll = Math.floor(Math.random() * 10) ;
+		document.getElementById(i + "Rand").value = charList[i].initiative.initRoll;
 	}
 	CalcInit();
 	sortChars();
@@ -263,15 +269,15 @@ function sortChars()
 function nextChar()
 {
 	var i = 0;
-	var currTurn = charList[i].finished;
-	charList[i].finished = true;
+	var currTurn = charList[i].initiative.finished;
+	charList[i].initiative.finished = true;
 	
 	// Find the first character whose turn isn't over
 	while(currTurn && (i < charList.length))
 	{
-		currTurn = charList[i].finished;
-		console.log(charList[i].name + " " + charList[i].finished);
-		charList[i].finished = true;
+		currTurn = charList[i].initiative.finished;
+		console.log(charList[i].name + " " + charList[i].initiative.finished);
+		charList[i].initiative.finished = true;
 		i++;
 	}
 	writeCharactersInitiative();	
@@ -280,7 +286,7 @@ function nextChar()
 function nextTurn()
 {
     for (var i = 0; i < charList.length; i++) {
-		charList[i].finished = false;
+		charList[i].initiative.finished = false;
 	}
 	writeCharactersInitiative();
 }
@@ -311,6 +317,7 @@ function writeCharacterList() {
 function writeCharactersInitiative() {
 	"use strict";
 	var outputString = "";
+	var sortedCharList = charList;
 
     outputString += "<table width=\"100%\">";
 
@@ -322,16 +329,30 @@ function writeCharactersInitiative() {
     outputString += "<td> Delete Entry</td>";
     outputString += "</tr>";
 
+	// Todo: sort the character list
+	sortedCharList = quickSort(charList, function comparator(a, b)
+		{
+			if(a.initiative.fullInit < b.initiative.fullInit)
+			{
+				return 1;
+			}
+			if(a.initiative.fullInit > b.initiative.fullInit)
+			{
+				return -1;
+			}
+			return 0;
+			
+		});
 
-    for (var i = 0; i < charList.length; i++) {
-		if(!charList[i].finished)
+    for (var i = 0; i < sortedCharList.length; i++) {
+		if(!sortedCharList[i].initiative.finished)
 		{
 			outputString += "<tr>";
-			outputString += "<td width=\"10%\">" + charList[i].name + "</td>";
-			outputString += "<td align=\"center\">" + charList[i].baseInit + "</td > ";
-			outputString += "<td align=\"center\">" + "<textarea rows=\"1\" cols=\"4\" id=\"" + i + "Rand\">" + charList[i].initRoll + "</textarea>" + "</td>";
-			outputString += "<td align=\"center\">" + charList[i].fullInit + "</td > ";
-			outputString += "<td>" + "<button name=\"" + charList[i].name + "Delete\" onclick=\"Delete(" + i + ")\">X</button>" + "</td>";
+			outputString += "<td width=\"10%\">" + sortedCharList[i].name + "</td>";
+			outputString += "<td align=\"center\">" + sortedCharList[i].initiative.baseInit + "</td > ";
+			outputString += "<td align=\"center\">" + "<textarea rows=\"1\" cols=\"4\" id=\"" + i + "Rand\">" + sortedCharList[i].initiative.initRoll + "</textarea>" + "</td>";
+			outputString += "<td align=\"center\">" + sortedCharList[i].initiative.fullInit + "</td > ";
+			outputString += "<td>" + "<button name=\"" + sortedCharList[i].name + "Delete\" onclick=\"Delete(" + i + ")\">X</button>" + "</td>";
 			outputString += "</tr>";
 		}
     }
